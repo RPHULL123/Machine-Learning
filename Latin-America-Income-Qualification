@@ -595,7 +595,37 @@ f1_score(Y_test,pred,average='weighted')
 accuracy_score(Y_test,pred)
 0.906276150627615
 
+I can now clean the test data and find predictions
+# drop Id variable.
+test.drop('r4t3',axis=1,inplace=True)
+test.drop(['Id','idhogar'],axis=1,inplace=True)
+test['dependency']=test['dependency'].apply(map)
+test['edjefe']=test['edjefe'].apply(map)
+test['edjefa']=test['edjefa'].apply(map)
+test['v2a1'].fillna(0,inplace=True)
+test['v18q1'].fillna(0,inplace=True)
 
+test.drop(['tipovivi3', 'v18q','rez_esc','elimbasu5'],axis=1,inplace=True)
+train['meaneduc'].fillna(np.mean(train['meaneduc']),inplace=True)
+train['SQBmeaned'].fillna(np.mean(train['SQBmeaned']),inplace=True)
+test_data=test[Top_Features]
+test_data.isna().sum().value_counts()
+0     48
+31     2
+dtype: int64
+
+test_data.SQBmeaned.fillna(np.mean(test_data['SQBmeaned']),inplace=True)
+test_data.meaneduc.fillna(np.mean(test_data['meaneduc']),inplace=True)
+Test_data_1=SS.fit_transform(test_data)
+X_data_1=pd.DataFrame(Test_data_1)
+test_prediction=Model_1.predict(test_data)
+
+will now run the code 'test_predicition' which will give the predicted outcome
+
+test_prediction
+array([4, 4, 4, ..., 4, 4, 4], dtype=int64)
+
+By using the RandomForest model we can predict the outcome with a performance of %90
 
 
 
